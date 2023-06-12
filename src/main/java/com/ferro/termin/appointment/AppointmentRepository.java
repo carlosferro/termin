@@ -14,6 +14,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Intege
 	List<Appointment> findByProviderEquals(Provider provider);
 
 	@Query("select a from Appointment a where a.provider.id = :providerId and  a.startDate >=:dayStart and  a.startDate <=:dayEnd")
-	List<Appointment> findByProviderIdWithStartInPeroid(@Param("providerId") int providerId,
+	List<Appointment> findByProviderIdWithStartInPeriod(@Param("providerId") int providerId,
 			@Param("dayStart") LocalDateTime startPeroid, @Param("dayEnd") LocalDateTime endPeroid);
 }

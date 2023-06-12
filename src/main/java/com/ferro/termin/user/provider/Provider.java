@@ -24,6 +24,7 @@ public class Provider extends User {
 	
 	@OneToOne(mappedBy = "provider", cascade = {CascadeType.ALL}, orphanRemoval = true)
 	@JsonManagedReference
+	@JsonIgnore
 	private Availability availability;
 
 	@OneToMany(mappedBy = "provider")

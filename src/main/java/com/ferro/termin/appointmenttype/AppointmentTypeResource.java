@@ -24,7 +24,7 @@ public class AppointmentTypeResource {
 	@GetMapping("/appointment-type/{email}")
 	public List<AppointmentType> retriveAppointmentTypes(@PathVariable String email) {
 
-		var provider = userService.findUserByEmail(email);
+		var provider = userService.findProviderByEmail(email);
 		
 		return ((Provider) provider).getAppointmentTypes();
 	}

@@ -25,7 +25,7 @@ public class AppointmentService {
 	public List<TimePeriod> getSlotsAtDay(Provider provider, AppointmentType appointmentType, LocalDate date) {
 		var allSlots = provider.getAvailability().getDayPlan(date.getDayOfWeek())
 				.getAllSlots(appointmentType);
-		var appointments = appointmentRepository.findByProviderIdWithStartInPeroid(provider.getId(),
+		var appointments = appointmentRepository.findByProviderIdWithStartInPeriod(provider.getId(),
 				date.atStartOfDay(), date.atStartOfDay().plusDays(1));
 		var slots = allSlots.stream().filter(slot -> appointments.stream().noneMatch(slot::overlaps)).collect(Collectors.toList());
 		return slots;

@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "./security/AuthContext";
 
-const pages = ["Home", "Availability", "Agenda"];
+const pages = ["Home", "Availability", "Agenda/cferro"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function AppBarComponent() {

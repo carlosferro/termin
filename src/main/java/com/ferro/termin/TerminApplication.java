@@ -69,7 +69,7 @@ public class TerminApplication implements CommandLineRunner {
 		provider.addAppointmentType(appointmentType);
 		provider.addAppointmentType(appointmentType2);
 		Customer customer = new Customer(2, encodedPassword, "customer", "ferro", "customer@example.com", roles, null);
-		var appointment = new Appointment(1, LocalDateTime.now(), LocalDateTime.now(), AppointmentStatus.CONFIRMED,
+		var appointment = new Appointment(LocalDateTime.now(), LocalDateTime.now(), AppointmentStatus.CONFIRMED,
 				provider, customer, appointmentType);
 		
 		providerRepository.save(provider);

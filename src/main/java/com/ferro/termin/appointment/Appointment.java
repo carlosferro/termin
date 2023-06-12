@@ -43,16 +43,26 @@ public class Appointment {
 		super();
 	}
 
-	public Appointment(Integer id, LocalDateTime startDate, LocalDateTime endDate, AppointmentStatus appointmentStatus,
+	public Appointment(LocalDateTime startDate, LocalDateTime endDate, AppointmentStatus appointmentStatus,
 			Provider provider, Customer customer, AppointmentType appointmentType) {
 		super();
-		this.id = id;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.appointmentStatus = appointmentStatus;
 		this.provider = provider;
 		this.customer = customer;
 		this.appointmentType = appointmentType;
+	}
+
+	public Appointment(LocalDateTime startDate, AppointmentStatus appointmentStatus,
+					   Provider provider, Customer customer, AppointmentType appointmentType) {
+		super();
+		this.startDate = startDate;
+		this.appointmentStatus = appointmentStatus;
+		this.provider = provider;
+		this.customer = customer;
+		this.appointmentType = appointmentType;
+		this.endDate = startDate.plusMinutes(appointmentType.getDuration());
 	}
 
 	@Override

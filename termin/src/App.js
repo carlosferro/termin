@@ -20,8 +20,16 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/availability" element={<Availability />} />
 
-            <Route
+            {/* <Route
               path="/agenda"
+              element={
+                <AuthenticatedRoute>
+                  <AgendaComponent />
+                </AuthenticatedRoute>
+              }
+            /> */}
+            <Route
+              path="/agenda/:username"
               element={
                 <AuthenticatedRoute>
                   <AgendaComponent />

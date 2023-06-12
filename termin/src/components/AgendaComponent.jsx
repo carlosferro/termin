@@ -16,7 +16,12 @@ import {
   ToggleButtonGroup,
 } from "@mui/material";
 import { Form, Formik } from "formik";
-import { retriveAvailableSlotsAtDate } from "./api/AppointmentApiService";
+import {
+  retriveAvailableSlotsAtDate,
+  createAppointment,
+} from "./api/AppointmentApiService";
+import { useParams } from "react-router-dom";
+import ConfirmAppointmentComponent from "./ConfirmAppointmentComponent";
 
 const ITEM_HEIGHT = 30;
 const MenuProps = {
@@ -29,11 +34,15 @@ const MenuProps = {
 };
 
 export default function AgendaComponent() {
+  const { username } = useParams();
   const [availabilityTypes, setAvailabilityTypes] = useState([]);
+  const [selectedAvailabilityType, setSelectedAvailabilityType] = useState("");
   const [selectedDate, setSelectedDate] = useState(dayjs());
   const [availabilityAtDate, setAvailabilityAtDate] = useState([]);
+  const [selectedSlot, setSelectedSlot] = useState();
   const authContext = useAuth();
   const email = authContext.email;
+  const [open, setOpen] = React.useState(false);
 
   useEffect(() => {
     retrieveAppointmentTypesForEmail(email)
@@ -43,15 +52,31 @@ export default function AgendaComponent() {
       .catch((error) => console.log(error));
   }, []);
 
+  useEffect(() => {
+    availableSlotsAtDate();
+  }, [selectedAvailabilityType, selectedDate]);
+
   const initialValues = {
     availabilityType: "",
   };
 
   const handleChange = (e) => {
-    const date = selectedDate.toISOString().split("T")[0];
-    retriveAvailableSlotsAtDate(email, e.target.value, date)
-      .then((response) => setAvailabilityAtDate(response.data))
-      .catch((error) => console.log(error));
+    setSelectedAvailabilityType(e.target.value);
+    // availableSlotsAtDate()
+  };
+
+  const availableSlotsAtDate = () => {
+    if (selectedAvailabilityType != "") {
+      const date = selectedDate.toISOString().split("T")[0];
+      retriveAvailableSlotsAtDate(email, selectedAvailabilityType, date)
+        .then((response) => setAvailabilityAtDate(response.data))
+        .catch((error) => console.log(error));
+    }
+  };
+
+  const confirmSlot = () => {
+    console.log("test");
+    console.log(email);
   };
 
   return (
@@ -107,7 +132,9 @@ export default function AgendaComponent() {
                 variant="outlined"
                 sx={{ mb: 1 }}
                 onClick={() => {
-                  console.log(`${period.startTime} - ${period.endTime}`);
+                  setSelectedSlot(availabilityAtDate[index]);
+                  setOpen(true);
+                  console.log(selectedSlot);
                 }}
               >
                 {period.startTime} - {period.endTime}
@@ -116,6 +143,15 @@ export default function AgendaComponent() {
           </Box>
         </Grid>
       </Grid>
+      <ConfirmAppointmentComponent
+        open={open}
+        setOpen={setOpen}
+        selectedSlot={selectedSlot}
+        selectedDate={selectedDate}
+        selectedAvailabilityType={selectedAvailabilityType}
+        availabilityTypes={availabilityTypes}
+        confirmSlot={confirmSlot}
+      ></ConfirmAppointmentComponent>
     </>
   );
 }

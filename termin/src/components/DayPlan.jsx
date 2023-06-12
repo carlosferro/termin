@@ -54,7 +54,7 @@ export default function DayPlan({ dayIndex, periods }) {
 
   const handleSubmit = (values, props) => {
     const dayPlan = {
-      workingInterval: values.periods,
+      workingInterval: values.initialPeriods,
     };
 
     console.log(dayPlan);
@@ -117,9 +117,15 @@ export default function DayPlan({ dayIndex, periods }) {
                         <Select
                           labelId={`start-${index}`}
                           id={`select-start-${index}`}
-                          name={`periods[${index}].startTime`}
-                          value={period.startTime}
+                          name={`initialPeriods[${index}].startTime`}
+                          value={initialPeriods[index].startTime}
                           label="Start"
+                          // onChange={(e) => {
+                          //   const { value } = e.target;
+                          //   initialPeriods[index].startTime = value;
+                          //   props.setFieldValue("initialPeriods", initialPeriods);
+                          //   console.log(period);
+                          // }}
                           onChange={props.handleChange}
                           onBlur={props.handleBlur}
                           MenuProps={MenuProps}
@@ -136,7 +142,7 @@ export default function DayPlan({ dayIndex, periods }) {
                         <Select
                           labelId={`end-${index}`}
                           id={`select-end-${index}`}
-                          name={`periods[${index}].endTime`}
+                          name={`initialPeriods[${index}].endTime`}
                           value={period.endTime}
                           label="End"
                           onChange={props.handleChange}
@@ -155,7 +161,8 @@ export default function DayPlan({ dayIndex, periods }) {
                           const newPeriods = initialPeriods.filter(
                             (period, i) => i !== index
                           );
-                          props.setFieldValue("periods", newPeriods);
+
+                          props.setFieldValue("initialPeriods", newPeriods);
                         }}
                       >
                         <DeleteIcon />
