@@ -33,7 +33,7 @@ The project is currently in development, and additional features will be added t
 
 To install and set up the Termin app locally, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/your-username/termin.git`
+1. Clone the repository: `git clone https://github.com/carlosferro/termin.git`
 2. Install the required dependencies for the frontend using `npm` or `yarn`.
 3. Configure the backend by providing the necessary environment variables for the Spring Boot application.
 4. Build and run the frontend and backend components of the project.
